@@ -1,0 +1,17 @@
+COMPILER := g++
+EXECUTABLE := example_list_aps.exe
+LIBS :=
+CFLAGS := -O3
+
+SOURCE := example_list_aps.cpp library/wlanapi.cpp library/wlanapi_exception.cpp
+
+all : $(EXECUTABLE)
+
+build : $(EXECUTABLE)
+
+clean :
+	rm -f $(EXECUTABLE)
+
+$(EXECUTABLE) :
+	$(COMPILER) $(CFLAGS) $(SOURCE) -o $(EXECUTABLE) $(addprefix -l,$(LIBS))
+	strip $(EXECUTABLE)
