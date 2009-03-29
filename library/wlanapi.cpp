@@ -165,7 +165,11 @@ const AP_LIST& wlanapi::get_ap_list(ADAPTER_NAME *adapter_name) {
         throw wlanapi_exception("You have to call get_adapter_list() first!");
     }
 
+#ifdef WIN32
     if (adapter_name == NULL || (adapter_name != NULL && wcslen(adapter_name) == 0)) {
+#else
+    if (adapter_name == NULL || (adapter_name != NULL && strlen(adapter_name) == 0)) {
+#endif
 
         for (ADAPTER_LIST::iterator it = adapter_list.begin(); it < adapter_list.end(); ++it) {
             DEBUG_PRINT("  Handling adapter %s...\n", (char *)it->name);
