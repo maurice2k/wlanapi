@@ -1327,7 +1327,9 @@ void wlanapi::_dbus_get_ap_list(ADAPTER_NAME *adapter_name) {
         strength = g_value_get_uchar(&g_value);
         g_value_unset(&g_value);
 
-        ap_info.rssi = strength;
+        // Strength is expressed as a percentage and thus we have to convert
+        // it to a RSSI value using linear interpolation.
+        ap_info.rssi = -100 + strength / 2;
 
         DEBUG_PRINT("  Strength: %i\n", strength);
 
